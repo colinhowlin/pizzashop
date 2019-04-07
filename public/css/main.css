@@ -1,0 +1,68 @@
+.login-label {
+    font-style: bold;
+    color: seagreen;
+}
+
+.navbar {
+    margin-top: 1em;
+    border-top: 1px solid black;
+}
+
+.centered {
+    width: 40% !important;
+    margin: auto;
+}
+
+.header {
+    font-family: 'Srisakdi', cursive;
+    font-size: 2em !important;
+    color: Black !important;
+    text-align: center;
+}
+
+.center-text{
+    text-align: center !important;
+}
+
+.menu-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin:auto;
+}
+
+.menu-table td, .menu-table th {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
+.menu-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.menu-table tr:hover {background-color: #ddd;}
+
+.menu-table th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #abcabc;
+    color: white;
+}
+
+.menu-table button {
+    padding: 0;
+    width: 50%;
+}
+
+/* For Centering an image in the header and making it responsive
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
+.pizza-banner {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+*/

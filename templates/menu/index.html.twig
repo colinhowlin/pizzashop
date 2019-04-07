@@ -1,0 +1,130 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div data-role="page" id="menu">
+
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <div data-role="content" class="ui-content">
+
+        <a href="#orders"><button id="viewOrdersButton">View your current orders.</button></a>
+
+        <!-- TODO: add drop-down for sizes to reduce size of menu -->
+        <div id="menuList">
+            <table class="menu-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Add To Order</th>
+                        <th>Qty in Basket</th>
+                        <th>Remove From Order</th>
+                    </tr>
+                </thead>
+                <tbody id="menuTableBody"></tbody>
+            </table>
+        </div>
+
+        <br/>
+        <div id="commentsArea">
+            <label for="delivery_address">Delivery Address:</label>
+            <textarea name="delivery_address" id="delivery_address"></textarea>
+
+            <label for="comments">Additional Comments:</label>
+            <textarea name="comments" id="comments"></textarea>
+        </div>
+
+        <button id="placeOrderButton">Place Order</button>
+
+        <div id="orderDetailsDiv" class="centered">
+            <h3>Your Order Details:</h3>
+
+        </div>
+
+
+        <button id="backToOrderButton">Back to Order</button>
+        <button id="confirmOrderButton">Confirm Order</button>
+
+        <br/>
+        <br/>
+        <br/>
+
+    </div><!-- /content -->
+
+</div>
+
+<div data-role="page" id="orders">
+
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+
+    <div data-role="content" class="ui-content">
+
+        <a href="#menu"><button id="viewMenuButton">View Menu</button></a>
+
+        <div id="viewCurrentOrders">
+            <table class="menu-table">
+                <thead>
+                <tr>
+                    <th>OrderID</th>
+                    <th>Delivery Address</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Total Cost</th>
+                    <th>Ordered</th>
+                </tr>
+                </thead>
+                <tbody id="orderTableBody"></tbody>
+            </table>
+
+            <br/>
+
+        </div>
+
+        <div id="dispatchCancelDiv" class="center-text">
+            <h3 id="orderIdHeader" class="center-tex"></h3>
+            {% if is_granted('ROLE_DRIVER')%}
+                <div id="orderOptionsDiv"></div>
+            {% endif %}
+        </div>
+
+        <br/>
+
+        <div id="orderDetailsTable">
+
+            <table class="menu-table">
+
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Cost</th>
+                </tr>
+                </thead>
+                <tbody id="orderDetailsTableBody"></tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+<script src="/js/base.js"></script>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div data-role="page" id="menu">
+
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <br/>
+
+    <div class="center-text">
+    <a href="/manager#reports">Sales Reports</a>
+    </div>
+
+    <br/>
+
+    <div id="viewCurrentOrders">
+        <table class="menu-table">
+            <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>Delivery Address</th>
+                <th>Status</th>
+                <th>Comments</th>
+                <th>Total Cost</th>
+                <th>Ordered</th>
+                <th>Cancel Order</th>
+            </tr>
+            </thead>
+            <tbody id="orderTableBody"></tbody>
+
+
+        </table>
+
+        <br/>
+
+    </div>
+
+</div>
+
+<div data-role="page" id="reports">
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <div class="center-text">
+        <br/>
+        <a href="/manager#menu">View All Orders</a>
+        <br/>
+    </div>
+    <h1>Reports Page</h1>
+
+    <ul>
+
+        <li><a href="/manager#daysales">View Sales By Day</a></li>
+        <li><a href="/manager#weeksales">View Sales By Week</a></li>
+        <li><a href="/manager#monthsales">View Sales By Month</a></li>
+
+    </ul>
+
+</div>
+
+<div data-role="page" id="daysales">
+
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <br/>
+
+    <a href="/manager#reports">Back</a>
+
+    <div class="centered">
+        <p>Select date to view sales data:</p>
+        <input class="datepicker" type="date" name="datepicker" id="datepicker">
+        <a class="nav-link" id="target" href="#"><button>Submit</button></a>
+    </div>
+
+    <script>
+        $("#datepicker").change(function(){
+            var date = $("#datepicker").val();
+            var newurl = "/manager/report/daily/" + date;
+            $("#target").prop("href", newurl);
+        });
+
+    </script>
+
+    <table class="menu-table">
+        <thead>
+        <tr>
+            <th>Total Orders</th>
+            <th>Total Sales</th>
+        </tr>
+        </thead>
+        <tbody id="salesResultTableBody"></tbody>
+
+    </table>
+
+</div>
+
+<div data-role="page" id="weeksales">
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <br/>
+
+    <a href="/manager#reports">Back</a>
+</div>
+
+<div data-role="page" id="monthsales">
+    <div data-role="header" data-position="inline" data-theme="e">
+
+        <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+        {% include 'navbar.html.twig' %}
+
+    </div><!--end header-->
+
+    <br/>
+
+    <a href="/manager#reports">Back</a>
+</div>
+
+
+<script src="/js/manager.js"></script>
+
+{% endblock %}
+
