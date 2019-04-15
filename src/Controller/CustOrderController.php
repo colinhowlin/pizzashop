@@ -28,7 +28,7 @@ class CustOrderController extends AbstractController
      */
     public function index(UserInterface $user)
     {
-        //get $request items and find type of request
+        //get delivery address and comments from $Request
         $request = Request::createFromGlobals();
         $delivery_address = $request->request->get('delivery_address', 'none');
         $comments = $request->request->get('comments', 'none');
@@ -51,10 +51,8 @@ class CustOrderController extends AbstractController
         $custOrder->setComments($comments);
         $custOrder->setTimestamp($datetime);
 
-        //Get the entityManager to add the items to the database
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($custOrder);
-        $entityManager->flush();
+        //persist order to the database
+        $this->persistToDb($custOrder);
 
         //after flushing, get the order ID
         $orderID = $custOrder->getId();
@@ -62,7 +60,7 @@ class CustOrderController extends AbstractController
         //add each item in the orderItems JSON to the orderItems table
         foreach($orderedItems as $item){
             //find product_id from product_code supplied - from Product table
-            $repo = $entityManager->getRepository(Product::class);
+            $repo = $this->getDoctrine()->getManager()->getRepository(Product::class);
             $product = $repo->findOneBy(['product_code' => $item->product_code]);
 
             //add items to the orderItem table
@@ -71,12 +69,11 @@ class CustOrderController extends AbstractController
             $custOrderItem->setQuantity($item->qty);
             $custOrderItem->setOrderId($orderID);
 
-            $entityManager->persist($custOrderItem);
-            $entityManager->flush();
+            //persist to DB
+            $this->persistToDb($custOrderItem);
         }
 
-        //Add code here to redirect and show confirmation of order acceptance
-
+        //TODO: make order confirmation page prettier
         return $this->render('cust_order/orderconfirmation.html.twig');
     }
 
@@ -94,37 +91,32 @@ class CustOrderController extends AbstractController
     public function viewOrders(UserInterface $user){
         $user_id = $user->getId();
 
+        //if user has Driver role, show all orders
         if ($this->security->isGranted('ROLE_DRIVER')) {
-            $orders = $this->getDoctrine()
-                ->getRepository(CustOrder::class)
-                ->findAll();
+            $orders = $this->findAllCust(CustOrder::class);
         }
+        //if user is a customer, show only their orders
         else if ($this->security->isGranted('ROLE_USER')) {
-            $orders = $this->getDoctrine()
-                ->getRepository(CustOrder::class)
-                ->findBy(array('user_id' => $user_id));
+            $orders = $this->findByCust(CustOrder::class, $user_id, 'user_id');
         }
 
         $ordersArray = array();
 
+        //loop through orders to build the ordered items
         foreach($orders as $order) {
             $order_id = $order->getId();
             $total_cost = 0;
-            $order_items = $this->getDoctrine()
-                ->getRepository(CustOrderItem::class)
-                ->findBy(array('order_id' => $order_id));
+            $order_items = $this->findByCust(CustOrderItem::class, $order_id, 'order_id');
 
+            //get the thotal cost of each order by looping through each item
             foreach($order_items as $item){
                 $product_id = $item->getProductId();
                 $quantity = $item->getQuantity();
-
-                $product = $this->getDoctrine()
-                    ->getRepository(Product::class)
-                    ->find($product_id);
-
+                $product = $this->findCust(Product::class, $product_id);
                 $total_cost += $quantity * $product->getPrice();
             }
 
+            //build the array to be pased to the view
             $ordersArray[] = array(
                 'id' => $order_id,
                 'delivery_address' => $order->getDeliveryAddress(),
@@ -135,6 +127,7 @@ class CustOrderController extends AbstractController
             );
         }
 
+        //encode array as json
         $response = new Response(json_encode($ordersArray));
 
         return $response;
@@ -145,20 +138,16 @@ class CustOrderController extends AbstractController
      *
      */
     public function viewOrderById($id){
-        $order_items = $this->getDoctrine()
-            ->getRepository(CustOrderItem::class)
-            ->findBy(array('order_id' => $id));
-
+        //retrieve the ordered items from the database for the given ID
+        $order_items = $this->findByCust(CustOrderItem::class, $id, 'order_id');
         $custOrderDetailsArray = array();
 
+        //loop through the ordered items and retrieve the Product object of each
         foreach($order_items as $item){
-            //$custOrderDetails = new CustOrderDetails();
             $product_id = $item->getProductId();
+            $product = $this->findCust(Product::class, $product_id);
 
-            $product = $this->getDoctrine()
-                ->getRepository(Product::class)
-                ->find($product_id);
-
+            //build array to pass to the view
             $custOrderDetailsArray[] = array(
                 'name' => $product->getName(),
                 'description' => $product->getDescription(),
@@ -167,6 +156,7 @@ class CustOrderController extends AbstractController
             );
         }
 
+        //Encode the array as a JSON for easy parsing
         $response = new Response(json_encode($custOrderDetailsArray));
 
         return $response;
@@ -177,15 +167,10 @@ class CustOrderController extends AbstractController
      *
      */
     public function dispatchOrder($id){
-        $order = $this->getDoctrine()
-            ->getRepository(CustOrder::class)
-            ->find($id);
-
+        //Retrieve order from db and set status to Dispatched
+        $order = $this->findCust(CustOrder::class, $id);
         $order->setStatus("Dispatched");
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($order);
-        $entityManager->flush();
+        $this->persistToDb($order);
 
         return new Response("Order dispatched!");
     }
@@ -195,16 +180,73 @@ class CustOrderController extends AbstractController
      *
      */
     public function completeOrder($id){
-        $order = $this->getDoctrine()
-            ->getRepository(CustOrder::class)
-            ->find($id);
-
+        //retrieve the order from DB and set status to completed
+        $order = $this->findCust(CustOrder::class, $id);
         $order->setStatus("Completed");
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($order);
-        $entityManager->flush();
+        $this->persistToDb($order);
 
         return new Response("Order Delivered!");
+    }
+
+    /**
+     *
+     * Helper methods to retrieve data from database
+     *
+     */
+
+    /**
+     * @param $entity
+     * @return object[]
+     *
+     * Retrieves all records of passed Entity
+     */
+    public function findAllCust($entity){
+        $results = $this->getDoctrine()
+            ->getRepository($entity)
+            ->findAll();
+
+        return $results;
+    }
+
+    /**
+     * @param $entity
+     * @param $id
+     * @param $idString
+     * @return object[]
+     *
+     * Retrieves records of passed entity with passed id
+     */
+    public function findByCust($entity, $id, $idString){
+        $results = $this->getDoctrine()
+            ->getRepository($entity)
+            ->findBy(array($idString => $id));
+
+        return $results;
+    }
+
+    /**
+     * @param $entity
+     * @param $field
+     * @return object|null
+     *
+     * Retrieves records from entity from passed field
+     */
+    public function findCust($entity, $field){
+        $results = $this->getDoctrine()
+            ->getRepository($entity)
+            ->find($field);
+
+        return $results;
+    }
+
+    /**
+     * @param $entity
+     *
+     * Persists the passed object to the database
+     */
+    public function persistToDb($entity){
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($entity);
+        $entityManager->flush();
     }
 }

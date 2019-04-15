@@ -19,6 +19,41 @@ class CustOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, CustOrder::class);
     }
 
+    //Returns array of orders from the given date
+    public function findByDate($timestamp): array
+    {
+        if($timestamp == "today"){
+            $timestamp = date("Y-m-d");
+        }
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM cust_order co
+        WHERE co.timestamp LIKE :timestamp
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['timestamp' => $timestamp."%"]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
+    public function getMonthlyData($month){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM cust_order
+        WHERE MONTH(timestamp) LIKE :timestamp 
+        ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['timestamp' => $month."%"]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return CustOrder[] Returns an array of CustOrder objects
     //  */

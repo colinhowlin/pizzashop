@@ -3,128 +3,185 @@
 {% block body %}
 
 
-<div data-role="page" id="menu">
+    <div data-role="page" id="menu" class="jqm-demos ui-responsive-panel">
+         <div data-role="header" data-position="fixed">
 
-    <div data-role="header" data-position="inline" data-theme="e">
+            <h1>Menu</h1>
+            <a href="#orders">Current Orders</a>
+            <a href="#currentOrderPanel" id="viewCurrentOrder">View Order</a>
+            {% include 'navbar.html.twig' %}
+         </div><!-- /header -->
 
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
+        <div role="main" class="ui-content jqm-content jqm-fullwidth">
 
-        {% include 'navbar.html.twig' %}
+            <h2 class="center-text">Pizzas</h2>
 
-    </div><!--end header-->
-
-    <div data-role="content" class="ui-content">
-
-        <a href="#orders"><button id="viewOrdersButton">View your current orders.</button></a>
-
-        <!-- TODO: add drop-down for sizes to reduce size of menu -->
-        <div id="menuList">
             <table class="menu-table">
                 <thead>
+                    <th>Pizza Name</th>
+                    <th>Description</th>
+                    <th>Select Size</th>
+                    <th>Price</th>
+                    <th>Add to Order</th>
+                </thead>
+                <tbody id="pizzaTableBody">
+
+                </tbody>
+            </table>
+
+            <br>
+            <h2 class="center-text">Extra Toppings</h2>
+            <table class="menu-table">
+                <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Add to Order</th>
+                </thead>
+                <tbody id="toppingsTableBody">
+
+                </tbody>
+            </table>
+
+            <br>
+            <h2 class="center-text">Sides</h2>
+            <table class="menu-table">
+                <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Add to Order</th>
+                </thead>
+                <tbody id="sidesTableBody">
+
+                </tbody>
+            </table>
+
+            <br>
+            <h2 class="center-text">Drinks</h2>
+            <table class="menu-table">
+                <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Add to Order</th>
+                </thead>
+                <tbody id="drinksTableBody">
+
+                </tbody>
+            </table>
+
+            <br>
+
+            <div data-role="panel" data-position="right" data-display="overlay" id="currentOrderPanel">
+                <h2>Cart</h2>
+                <div id="currentOrderPanelDetails">
+                    <table class="currentOrderTable">
+                        <thead>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Cost</th>
+                            <th>Delete</th>
+                            <th>Add</th>
+                        </thead>
+                        <tbody id="currentOrderPanelTbody">
+
+                        </tbody>
+                        <tr><td>Total Cost</td><td id="totalCostTd"></td></tr>
+                    </table>
+                </div>
+                <div id="commentsArea">
+                    <label for="delivery_address">Delivery Address:</label>
+                    <textarea name="delivery_address" id="delivery_address"></textarea>
+
+                    <label for="comments">Additional Comments:</label>
+                    <textarea name="comments" id="comments"></textarea>
+                </div>
+
+                <a href="#popupOrder" data-rel="popup" data-position-to="window"
+                   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a"
+                   data-transition="pop" id="placeOrderButton">Review Order</a>
+
+
+                <div data-role="popup" id="popupOrder" data-theme="a" class="ui-corner-all" style="width:500px;">
+                    <div id="orderDetailsDiv" class="centered" style="width:90%;">
+                        <h3>Your Order Details:</h3>
+
+                    </div>
+
+
+                    <a href="#" data-rel="back"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">
+                        Close</a>
+                    <button id="confirmOrderButton">Confirm Order</button>
+
+                </div>
+
+
+            </div><!-- /panel -->
+
+        </div><!-- /content -->
+
+    </div>
+
+    <div data-role="page" id="orders">
+        <div data-role="header" data-position="fixed" data-theme="e">
+            {% include 'navbar.html.twig' %}
+        </div><!--end header-->
+
+        <div data-role="content" class="ui-content">
+
+            <a href="#menu"><button id="viewMenuButton">View Menu</button></a>
+
+            <div id="viewCurrentOrders">
+                <table class="menu-table">
+                    <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Add To Order</th>
-                        <th>Qty in Basket</th>
-                        <th>Remove From Order</th>
+                        <th>OrderID</th>
+                        <th>Delivery Address</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                        <th>Total Cost</th>
+                        <th>Ordered</th>
                     </tr>
-                </thead>
-                <tbody id="menuTableBody"></tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody id="orderTableBody"></tbody>
+                </table>
 
-        <br/>
-        <div id="commentsArea">
-            <label for="delivery_address">Delivery Address:</label>
-            <textarea name="delivery_address" id="delivery_address"></textarea>
+                <br/>
 
-            <label for="comments">Additional Comments:</label>
-            <textarea name="comments" id="comments"></textarea>
-        </div>
+            </div>
 
-        <button id="placeOrderButton">Place Order</button>
-
-        <div id="orderDetailsDiv" class="centered">
-            <h3>Your Order Details:</h3>
-
-        </div>
-
-
-        <button id="backToOrderButton">Back to Order</button>
-        <button id="confirmOrderButton">Confirm Order</button>
-
-        <br/>
-        <br/>
-        <br/>
-
-    </div><!-- /content -->
-
-</div>
-
-<div data-role="page" id="orders">
-
-    <div data-role="header" data-position="inline" data-theme="e">
-
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
-
-        {% include 'navbar.html.twig' %}
-
-    </div><!--end header-->
-
-
-    <div data-role="content" class="ui-content">
-
-        <a href="#menu"><button id="viewMenuButton">View Menu</button></a>
-
-        <div id="viewCurrentOrders">
-            <table class="menu-table">
-                <thead>
-                <tr>
-                    <th>OrderID</th>
-                    <th>Delivery Address</th>
-                    <th>Status</th>
-                    <th>Comments</th>
-                    <th>Total Cost</th>
-                    <th>Ordered</th>
-                </tr>
-                </thead>
-                <tbody id="orderTableBody"></tbody>
-            </table>
+            <div id="dispatchCancelDiv" class="center-text">
+                <h3 id="orderIdHeader" class="center-tex"></h3>
+                {% if is_granted('ROLE_DRIVER')%}
+                    <div id="orderOptionsDiv"></div>
+                {% endif %}
+            </div>
 
             <br/>
 
-        </div>
+            <div id="orderDetailsTable">
 
-        <div id="dispatchCancelDiv" class="center-text">
-            <h3 id="orderIdHeader" class="center-tex"></h3>
-            {% if is_granted('ROLE_DRIVER')%}
-                <div id="orderOptionsDiv"></div>
-            {% endif %}
-        </div>
+                <table class="menu-table">
 
-        <br/>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total Cost</th>
+                    </tr>
+                    </thead>
+                    <tbody id="orderDetailsTableBody"></tbody>
+                </table>
 
-        <div id="orderDetailsTable">
-
-            <table class="menu-table">
-
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Cost</th>
-                </tr>
-                </thead>
-                <tbody id="orderDetailsTableBody"></tbody>
-            </table>
+            </div>
 
         </div>
-
     </div>
-</div>
-<script src="/js/base.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/js/orderPanel.js"></script>
 
 {% endblock %}

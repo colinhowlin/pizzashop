@@ -36,7 +36,6 @@
             </thead>
             <tbody id="orderTableBody"></tbody>
 
-
         </table>
 
         <br/>
@@ -54,20 +53,21 @@
 
     </div><!--end header-->
 
-    <div class="center-text">
+    <div class="centered">
         <br/>
         <a href="/manager#menu">View All Orders</a>
         <br/>
-    </div>
+
+
     <h1>Reports Page</h1>
 
-    <ul>
+        <div id="salesSummary"></div>
 
-        <li><a href="/manager#daysales">View Sales By Day</a></li>
-        <li><a href="/manager#weeksales">View Sales By Week</a></li>
-        <li><a href="/manager#monthsales">View Sales By Month</a></li>
+        <a href="/manager#daysales">View Sales By Day</a><br>
+        <a href="/manager#weeksales">View Sales By Week</a><br>
+        <a href="/manager#monthsales" id="salesByMonthLink">View Sales By Month</a><br>
 
-    </ul>
+    </div>
 
 </div>
 
@@ -83,22 +83,23 @@
 
     <br/>
 
-    <a href="/manager#reports">Back</a>
+
 
     <div class="centered">
+
+        <a href="/manager#reports">Back to reports menu</a>
         <p>Select date to view sales data:</p>
         <input class="datepicker" type="date" name="datepicker" id="datepicker">
-        <a class="nav-link" id="target" href="#"><button>Submit</button></a>
+        <button id="salesDatePickerButton">Submit</button>
     </div>
 
     <script>
-        $("#datepicker").change(function(){
-            var date = $("#datepicker").val();
-            var newurl = "/manager/report/daily/" + date;
-            $("#target").prop("href", newurl);
-        });
+
+
 
     </script>
+
+    <div id="reportHeading"></div>
 
     <table class="menu-table">
         <thead>
@@ -124,21 +125,49 @@
 
     <br/>
 
-    <a href="/manager#reports">Back</a>
+    <div class="centered">
+        <a href="/manager#reports">Back to reports menu</a>
+
+    </div>
 </div>
 
 <div data-role="page" id="monthsales">
-    <div data-role="header" data-position="inline" data-theme="e">
-
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
-
+    <div data-role="header" data-position="fixed" data-theme="e">
         {% include 'navbar.html.twig' %}
-
     </div><!--end header-->
 
     <br/>
 
-    <a href="/manager#reports">Back</a>
+    <div class="centered">
+        <a href="/manager#reports">Back to reports menu</a>
+        <h3>Monthly Sales Data</h3>
+        <select id="monthPicker">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+    </div>
+    <div>
+        <table class="menu-table">
+            <thead>
+                <th>Total Orders</th>
+                <th>Total Sales</th>
+            </thead>
+            <tbody id="monthlyTableBody">
+
+            </tbody>
+        </table>
+
+    </div>
 </div>
 
 

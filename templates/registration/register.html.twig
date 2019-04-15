@@ -3,26 +3,24 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div data-role="header" data-position="inline" data-theme="e">
+    <div data-role="page" id="register">
+        <div data-role="header" data-position="fixed" data-theme="e">
+            {% include 'navbar.html.twig' %}
+        </div><!--end header-->
 
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
+        <div class="centered center-text">
+            <h1>Register</h1>
 
-        {% include 'navbar.html.twig' %}
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.first_name) }}
+                {{ form_row(registrationForm.last_name) }}
+                {{ form_row(registrationForm.phone) }}
 
-    </div><!--end header-->
+                <button class="btn">Register</button>
+            {{ form_end(registrationForm) }}
 
-    <div class="centered center-text">
-        <h1>Register</h1>
-
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword) }}
-            {{ form_row(registrationForm.first_name) }}
-            {{ form_row(registrationForm.last_name) }}
-            {{ form_row(registrationForm.phone) }}
-
-            <button class="btn">Register</button>
-        {{ form_end(registrationForm) }}
-
+        </div>
     </div>
 {% endblock %}

@@ -3,16 +3,11 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
     <!-- Start of first page: #one -->
     <div data-role="page" id="one">
 
-        <div data-role="header" data-position="inline" data-theme="e">
-
-            <!-- img src="/images/pizza-banner.jpeg"/ -->
-
+        <div data-role="header" data-position="fixed" data-theme="e">
             {% include 'navbar.html.twig' %}
-
         </div><!--end header-->
 
         <div data-role="content" class="ui-content">
@@ -38,8 +33,8 @@
 
             <!--TODO: Add a landing page once user logs in-->
             <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}!!</h1>
-            <p>Click <a href="/menu">here</a> to view the menu.</p>
-            <p>Or click <a href="/menu#orders" rel="external">here</a> to view your current orders.</p>
+            <p>Click <a href="/menu" data-ajax="false">here</a> to view the menu.</p>
+            <p>Or click <a href="/menu#orders" data-ajax="false" rel="external">here</a> to view your current orders.</p>
             {% endif %}
         </div><!-- end content -->
     </div><!-- end page one -->
