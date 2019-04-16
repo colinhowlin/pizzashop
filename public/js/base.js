@@ -99,6 +99,8 @@ $( "#placeOrderButton" ).click(function() {
     $(" #orderDetailsDiv ").html(custOrder);
 });
 
+var order_id;
+
 //click handler for confirmOrder button
 $( "#confirmOrderButton" ).click(function() {
     //create empty array to hold ordered products
@@ -128,9 +130,27 @@ $( "#confirmOrderButton" ).click(function() {
     //Post the order to the "/order" OrderController
     $.post("/order", { orderedItems:orderedItemsArrayJson, delivery_address:delivery_address, comments:comments })
         .done(function(data){
-            window.location.replace("/order/confirmation")
+            order_id = data;
+
+            //empty the cart
+            orderedItemsArray.forEach(function(item){
+                item.qty = 0;
+            });
+
+            //clear the arrays
+            orderedItemsArray = [];
+            orderedItemsArrayJson = [];
+
+            //close order popup and show the confirmation details
+            $("#popupOrder").popup("close");
+            $("#menu-main").hide();
+            $("#order_id").html(data);
+            $("#orderConfirmation").show();
+
     });
 });
+
+
 
 //view current orders
 $.getJSON("/order/view", function(data){
@@ -157,14 +177,15 @@ $.getJSON("/order/view", function(data){
                 + "<button id=markComplete" + val.id + " class='centered'>Mark Order " + val.id + " as Complete</button><br/>"
             );
             $("#markDispatched" + val.id).click(function(){
+                console.log(val.id);
                 $.post("/order/dispatch/" + val.id);
-                window.location.reload(true);
                 alert("Order " + val.id + " dispatched!");
+                window.location.reload(true);
             });
             $("#markComplete" + val.id).click(function(){
                 $.post("/order/complete/" + val.id);
-                window.location.reload(true);
                 alert("Order " + val.id + " delivered!");
+                window.location.reload(true);
             });
 
             //grab JSON of orderDetails from controller

@@ -10,8 +10,8 @@ function updateOrderPanel(productArray){
                 "<tr><td>" + product.name + "</td>" +
                 "<td id=curQty" + product.product_code + ">" + product.qty + "</td>" +
                 "<td id=curCost" + product.product_code + ">€" + product.qty * product.price +"</td>" +
-                "<td><button id=remove" + product.product_code + ">Delete</button></td>" +
-                "<td><button id=addToOrder" + product.product_code + ">Add</button></td></tr>"
+                "<td><button id=remove" + product.product_code + ">-</button></td>" +
+                "<td><button id=addToOrder" + product.product_code + ">+</button></td></tr>"
             );
         }
         //click handler for delete button

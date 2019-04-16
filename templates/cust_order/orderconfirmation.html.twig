@@ -1,4 +1,28 @@
-<!--TODO: Add proper order confirmation dialog -->
+{% extends 'base.html.twig' %}
 
-<h1>Order successfully placed.</h1>
-<a href="/">Home</a>
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <div data-role="page" id="login">
+
+        <div data-role="header" data-position="fixed" data-theme="e">
+            {% include 'navbar.html.twig' %}
+        </div><!--end header-->
+
+        <div data-role="content">
+            <div class="centered">
+
+                <h2>Order Confirmed!</h2>
+
+                <p>Your order Id is {{ order_id }}.</p>
+                <p><a href="/menu" data-ajax="false">Back to Menu.</a></p>
+                <p><a href="/menu#orders" data-ajax="false">View your current orders.</a></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

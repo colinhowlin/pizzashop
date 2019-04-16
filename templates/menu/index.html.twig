@@ -12,7 +12,7 @@
             {% include 'navbar.html.twig' %}
          </div><!-- /header -->
 
-        <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <div role="main" id="menu-main" class="ui-content jqm-content jqm-fullwidth">
 
             <h2 class="center-text">Pizzas</h2>
 
@@ -81,8 +81,8 @@
                             <th>Item</th>
                             <th>Qty</th>
                             <th>Cost</th>
-                            <th>Delete</th>
-                            <th>Add</th>
+                            <th>-</th>
+                            <th>+</th>
                         </thead>
                         <tbody id="currentOrderPanelTbody">
 
@@ -100,15 +100,12 @@
 
                 <a href="#popupOrder" data-rel="popup" data-position-to="window"
                    class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a"
-                   data-transition="pop" id="placeOrderButton">Review Order</a>
-
+                                    data-transition="pop" id="placeOrderButton">Review Order</a>
 
                 <div data-role="popup" id="popupOrder" data-theme="a" class="ui-corner-all" style="width:500px;">
                     <div id="orderDetailsDiv" class="centered" style="width:90%;">
                         <h3>Your Order Details:</h3>
-
                     </div>
-
 
                     <a href="#" data-rel="back"
                        class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">
@@ -117,10 +114,19 @@
 
                 </div>
 
-
             </div><!-- /panel -->
 
         </div><!-- /content -->
+
+        <div id="orderConfirmation" class="centered">
+
+            <h2>Order Confirmed!</h2>
+
+            <p>Your order Id is <span id="order_id"></span>.</p>
+            <p><a href="/menu" data-ajax="false">Back to Menu.</a></p>
+            <p><a href="/menu#orders" data-ajax="false">View your current orders.</a></p>
+
+        </div>
 
     </div>
 

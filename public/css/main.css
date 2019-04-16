@@ -64,10 +64,3 @@
 .currentOrderTable td{
     border: 1px solid #ddd;
 }
-
-/*custom width fof the order panel */
-#currentOrderPanel.ui-panel {
-    width: 80%;
-    max-width: 400px;
-    min-width: 114px;
-}
