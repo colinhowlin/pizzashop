@@ -3,172 +3,219 @@
 {% block body %}
 
 
-<div data-role="page" id="menu">
+    <div data-role="page" id="menu">
 
-    <div data-role="header" data-position="inline" data-theme="e">
+        <div data-role="header" data-position="fixed" data-theme="e">
 
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
+            <!-- img src="/images/pizza-banner.jpeg"/ -->
 
-        {% include 'navbar.html.twig' %}
+            {% include 'navbar.html.twig' %}
 
-    </div><!--end header-->
+        </div><!--end header-->
 
-    <br/>
+        <br/>
 
-    <div class="center-text">
-    <a href="/manager#reports">Sales Reports</a>
+        <div class="center-text">
+        <a href="/manager#reports">Sales Reports</a>
+        </div>
+
+        <br/>
+
+        <div id="viewCurrentOrders">
+            <table class="menu-table">
+                <thead>
+                <tr>
+                    <th>OrderID</th>
+                    <th>Delivery Address</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Total Cost</th>
+                    <th>Ordered</th>
+                    <th>Cancel Order</th>
+                </tr>
+                </thead>
+                <tbody id="orderTableBody"></tbody>
+
+            </table>
+
+            <br/>
+
+        </div>
+
     </div>
 
-    <br/>
+    <div data-role="page" id="reports">
+        <div data-role="header" data-position="fixed" data-theme="e">
 
-    <div id="viewCurrentOrders">
+            <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+            {% include 'navbar.html.twig' %}
+
+        </div><!--end header-->
+
+        <div class="centered">
+            <br/>
+            <a href="/manager#menu">View All Orders</a>
+            <br/>
+
+
+        <h1>Reports Page</h1>
+
+            <div id="salesSummary"></div>
+
+            <a href="/manager#daysales">View Sales By Day</a><br>
+            <a href="/manager#weeksales">View Sales By Week</a><br>
+            <a href="/manager#monthsales" id="salesByMonthLink">View Sales By Month</a><br>
+
+        </div>
+
+    </div>
+
+    <div data-role="page" id="daysales">
+
+        <div data-role="header" data-position="fixed" data-theme="e">
+
+            <!-- img src="/images/pizza-banner.jpeg"/ -->
+
+            {% include 'navbar.html.twig' %}
+
+        </div><!--end header-->
+
+        <br/>
+
+
+
+        <div class="centered">
+
+            <a href="/manager#reports">Back to reports menu</a>
+            <p>Select date to view sales data:</p>
+            <input class="datepicker" type="date" name="datepicker" id="datepicker">
+            <button id="salesDatePickerButton">Submit</button>
+        </div>
+
+        <script>
+
+
+
+        </script>
+
+        <div id="reportHeading"></div>
+
         <table class="menu-table">
             <thead>
             <tr>
-                <th>OrderID</th>
-                <th>Delivery Address</th>
-                <th>Status</th>
-                <th>Comments</th>
-                <th>Total Cost</th>
-                <th>Ordered</th>
-                <th>Cancel Order</th>
-            </tr>
-            </thead>
-            <tbody id="orderTableBody"></tbody>
-
-        </table>
-
-        <br/>
-
-    </div>
-
-</div>
-
-<div data-role="page" id="reports">
-    <div data-role="header" data-position="inline" data-theme="e">
-
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
-
-        {% include 'navbar.html.twig' %}
-
-    </div><!--end header-->
-
-    <div class="centered">
-        <br/>
-        <a href="/manager#menu">View All Orders</a>
-        <br/>
-
-
-    <h1>Reports Page</h1>
-
-        <div id="salesSummary"></div>
-
-        <a href="/manager#daysales">View Sales By Day</a><br>
-        <a href="/manager#weeksales">View Sales By Week</a><br>
-        <a href="/manager#monthsales" id="salesByMonthLink">View Sales By Month</a><br>
-
-    </div>
-
-</div>
-
-<div data-role="page" id="daysales">
-
-    <div data-role="header" data-position="inline" data-theme="e">
-
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
-
-        {% include 'navbar.html.twig' %}
-
-    </div><!--end header-->
-
-    <br/>
-
-
-
-    <div class="centered">
-
-        <a href="/manager#reports">Back to reports menu</a>
-        <p>Select date to view sales data:</p>
-        <input class="datepicker" type="date" name="datepicker" id="datepicker">
-        <button id="salesDatePickerButton">Submit</button>
-    </div>
-
-    <script>
-
-
-
-    </script>
-
-    <div id="reportHeading"></div>
-
-    <table class="menu-table">
-        <thead>
-        <tr>
-            <th>Total Orders</th>
-            <th>Total Sales</th>
-        </tr>
-        </thead>
-        <tbody id="salesResultTableBody"></tbody>
-
-    </table>
-
-</div>
-
-<div data-role="page" id="weeksales">
-    <div data-role="header" data-position="inline" data-theme="e">
-
-        <!-- img src="/images/pizza-banner.jpeg"/ -->
-
-        {% include 'navbar.html.twig' %}
-
-    </div><!--end header-->
-
-    <br/>
-
-    <div class="centered">
-        <a href="/manager#reports">Back to reports menu</a>
-
-    </div>
-</div>
-
-<div data-role="page" id="monthsales">
-    <div data-role="header" data-position="fixed" data-theme="e">
-        {% include 'navbar.html.twig' %}
-    </div><!--end header-->
-
-    <br/>
-
-    <div class="centered">
-        <a href="/manager#reports">Back to reports menu</a>
-        <h3>Monthly Sales Data</h3>
-        <select id="monthPicker">
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-        </select>
-    </div>
-    <div>
-        <table class="menu-table">
-            <thead>
                 <th>Total Orders</th>
                 <th>Total Sales</th>
+            </tr>
             </thead>
-            <tbody id="monthlyTableBody">
+            <tbody id="salesResultTableBody"></tbody>
 
-            </tbody>
         </table>
 
     </div>
-</div>
+
+    <div data-role="page" id="weeksales">
+        <div data-role="header" data-position="fixed" data-theme="e">
+            {% include 'navbar.html.twig' %}
+        </div><!--end header-->
+
+        <br/>
+
+        <div class="centered">
+            <a href="/manager#reports">Back to reports menu</a>
+            <h3>Weekly Sales Data</h3>
+            <p>Select Week from dropdown to view details</p>
+            <select id="weekPicker">
+
+            </select>
+        </div>
+        <div>
+            <table class="menu-table">
+                <thead>
+                <th>Total Orders</th>
+                <th>Total Sales</th>
+                <th>Average Spend Per Order</th>
+                </thead>
+                <tbody id="weeklyTableBody">
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div data-role="page" id="monthsales">
+        <div data-role="header" data-position="fixed" data-theme="e">
+            {% include 'navbar.html.twig' %}
+        </div><!--end header-->
+
+        <br/>
+
+        <div class="centered">
+            <a href="/manager#reports">Back to reports menu</a>
+            <h3>Monthly Sales Data</h3>
+            <p>Select month from dropdown to view details</p>
+            <select id="monthPicker">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+        </div>
+        <div>
+            <table class="menu-table">
+                <thead>
+                    <th>Total Orders</th>
+                    <th>Total Sales</th>
+                    <th>Average Spend Per Order</th>
+                </thead>
+                <tbody id="monthlyTableBody">
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="monthlySummaryTable">
+            <h3 class="center-text">Monthly Summary Sales Data</h3>
+            <table class="menu-table" id="monthlySummaryTable">
+                <thead>
+                    <th>Jan</th>
+                    <th>Feb</th>
+                    <th>Mar</th>
+                    <th>Apr</th>
+                    <th>May</th>
+                    <th>Jun</th>
+                    <th>Jul</th>
+                    <th>Aug</th>
+                    <th>Sep</th>
+                    <th>Oct</th>
+                    <th>Nov</th>
+                    <th>Dec</th>
+                </thead>
+                <tbody id="monthlySummaryTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
 
 
 <script src="/js/manager.js"></script>

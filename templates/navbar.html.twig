@@ -1,38 +1,38 @@
-<div data-role="navbar" data-grid="c" class="navbar">
-    <ul>
-        <li><a href="/">Home</a></li>
+    <div data-role="navbar" data-grid="c" class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
 
-        <!--If logged in, display 'Logout' button
-        else, display 'Login' button-->
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="/logout" data-ajax="false">Logout</a></li>
-        {% else %}
-            <li><a href="/login">Login</a></li>
-        {% endif %}
+            <!--If logged in, display 'Logout' button
+            else, display 'Login' button-->
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="/logout" data-ajax="false">Logout</a></li>
+            {% else %}
+                <li><a href="/login">Login</a></li>
+            {% endif %}
 
-        <!--Only display Registration link if user not logged in
-        else, display link to menu-->
+            <!--Only display Registration link if user not logged in
+            else, display link to menu-->
 
-        {% if is_granted('ROLE_USER')%}
-            <li><a href="/menu" data-ajax="false">Menu</a></li>
-        {% elseif is_granted('ROLE_DRIVER') %}
-            <li><a href="/menu#orders" data-ajax="false" rel="external">View Orders</a></li>
+            {% if is_granted('ROLE_USER')%}
+                <li><a href="/menu" data-ajax="false">Menu</a></li>
+            {% elseif is_granted('ROLE_DRIVER') %}
+                <li><a href="/menu#orders" data-ajax="false" rel="external">View Orders</a></li>
 
-        {% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="/register">Register</a></li>
-        {% endif %}
+            {% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="/register">Register</a></li>
+            {% endif %}
 
-        <!--Only display administration link to user with
-        ROLE_ADMIN role-->
-        {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="/admin" data-ajax="false">Administration</a></li>
-        {% elseif is_granted('ROLE_MANAGER') %}
-            <li><a href="/manager" data-ajax="false">Manager</a></li>
-        {% elseif is_granted('ROLE_USER')%}
-            <li><a href="/menu#orders" data-ajax="false" rel="external">Orders</a></li>
-        {% else %}
-            <li><a href="#about">About</a></li>
-        {% endif %}
+            <!--Only display administration link to user with
+            ROLE_ADMIN role-->
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="/admin" data-ajax="false">Administration</a></li>
+            {% elseif is_granted('ROLE_MANAGER') %}
+                <li><a href="/manager" data-ajax="false">Manager</a></li>
+            {% elseif is_granted('ROLE_USER')%}
+                <li><a href="/menu#orders" data-ajax="false" rel="external">Orders</a></li>
+            {% else %}
+                <li><a href="#about">About</a></li>
+            {% endif %}
 
-    </ul>
-</div><!-- /navbar -->
+        </ul>
+    </div><!-- /navbar -->

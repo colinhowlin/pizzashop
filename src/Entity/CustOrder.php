@@ -42,6 +42,11 @@ class CustOrder
      */
     private $user_id;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total_cost;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class CustOrder
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getTotalCost(): ?int
+    {
+        return $this->total_cost;
+    }
+
+    public function setTotalCost(int $total_cost): self
+    {
+        $this->total_cost = $total_cost;
 
         return $this;
     }

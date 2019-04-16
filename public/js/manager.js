@@ -76,7 +76,37 @@ $("#monthPicker").on('change', function(){
     $.getJSON(url, function(data){
         $("#monthlyTableBody").empty().append(
             "<tr><td>" + data['total_orders'] + "</td>" +
-            "<td>€" + data['total_sales'] + "</td></tr>"
+            "<td>€" + data['total_sales'] + "</td>" +
+            "<td>€" + data['total_sales'] / data['total_orders'] + "</td></tr>"
+        );
+    });
+});
+
+$.getJSON("/manager/report/monthlysummary", function(data){
+    $("#monthlySummaryTableBody").append("<tr>");
+    $.each(data['monthly_sales'], function(key, val) {
+        $("#monthlySummaryTableBody").append(
+            "<td>€" + val + "</td>"
+        );
+    });
+    $("#monthlySummaryTableBody").append("</tr>");
+});
+
+//build weekly select div
+for (var i = 1; i < 53; i++) {
+    $("#weekPicker").append(
+        "<option value=" + i + ">Week" + i + "</option>"
+    );
+}
+
+//on change handler for weekPicker select
+$("#weekPicker").on('change', function(){
+    var url = "/manager/report/weekly/" + $("#weekPicker").val();
+    $.getJSON(url, function(data){
+        $("#weeklyTableBody").empty().append(
+            "<tr><td>" + data['total_orders'] + "</td>" +
+            "<td>€" + data['total_sales'] + "</td>" +
+            "<td>€" + data['total_sales'] / data['total_orders'] + "</td></tr>"
         );
     });
 });

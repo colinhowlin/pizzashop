@@ -54,6 +54,49 @@ class CustOrderRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
+    public function getWeeklyData($week){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM cust_order
+        WHERE WEEK(timestamp) LIKE :timestamp 
+        ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['timestamp' => $week."%"]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
+    public function getMonthlySummary(){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT MONTH(timestamp) as nmonth, total_cost FROM cust_order
+        ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
+    public function getWeeklySummary(){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT WEEK(timestamp) as nweek, total_cost FROM cust_order
+        ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return CustOrder[] Returns an array of CustOrder objects
     //  */

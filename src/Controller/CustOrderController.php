@@ -33,6 +33,7 @@ class CustOrderController extends AbstractController
         $request = Request::createFromGlobals();
         $delivery_address = $request->request->get('delivery_address', 'none');
         $comments = $request->request->get('comments', 'none');
+        $total_cost = $request->request->get('total_cost', 'none');
 
         //get the orderDetails JSON from $REQUEST and decode it
         $orderedItems = json_decode($request->request->get('orderedItems', 'none'));
@@ -51,6 +52,7 @@ class CustOrderController extends AbstractController
         $custOrder->setStatus("In Progress");
         $custOrder->setComments($comments);
         $custOrder->setTimestamp($datetime);
+        $custOrder->setTotalCost($total_cost);
 
         //persist order to the database
         $this->persistToDb($custOrder);

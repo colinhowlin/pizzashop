@@ -105,11 +105,13 @@ var order_id;
 $( "#confirmOrderButton" ).click(function() {
     //create empty array to hold ordered products
     var orderedItemsArray = [];
+    var total_cost = 0;
 
     function addToOrderArray(productsArray){
         productsArray.forEach(function(product){
             if(product.qty > 0){
                 orderedItemsArray.push(product);
+                total_cost += product.qty * product.price;
             }
         });
     }
@@ -127,8 +129,9 @@ $( "#confirmOrderButton" ).click(function() {
     console.log("Comments: " + comments);
     console.log("Delivery Address: " + delivery_address);
 
+    console.log("Total Cost: " + total_cost);
     //Post the order to the "/order" OrderController
-    $.post("/order", { orderedItems:orderedItemsArrayJson, delivery_address:delivery_address, comments:comments })
+    $.post("/order", { orderedItems:orderedItemsArrayJson, delivery_address:delivery_address, comments:comments, total_cost:total_cost})
         .done(function(data){
             order_id = data;
 
@@ -140,6 +143,7 @@ $( "#confirmOrderButton" ).click(function() {
             //clear the arrays
             orderedItemsArray = [];
             orderedItemsArrayJson = [];
+            total_cost = 0;
 
             //close order popup and show the confirmation details
             $("#popupOrder").popup("close");
