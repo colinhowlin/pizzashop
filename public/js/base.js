@@ -5,6 +5,8 @@
     viewing existing orders.
  */
 
+$("#orderConfirmation").hide();
+
 //generate pizza menu entries
 pizzaTypes.forEach(function(pizzaType){
     $("#pizzaTableBody").append(
@@ -150,11 +152,8 @@ $( "#confirmOrderButton" ).click(function() {
             $("#menu-main").hide();
             $("#order_id").html(data);
             $("#orderConfirmation").show();
-
     });
 });
-
-
 
 //view current orders
 $.getJSON("/order/view", function(data){
@@ -173,7 +172,7 @@ $.getJSON("/order/view", function(data){
             //When clicked, empty the current contents of the table body and show the div
             $("#orderDetailsTable").show();
             $("#orderDetailsTableBody").empty();
-            //$("#orderOptionsDiv").empty();
+            $("#orderDetailsPopup").popup("open");
 
             //create dispatch and order buttons
             $("#orderOptionsDiv").empty().show().append(
@@ -181,14 +180,21 @@ $.getJSON("/order/view", function(data){
                 + "<button id=markComplete" + val.id + " class='centered'>Mark Order " + val.id + " as Complete</button><br/>"
             );
             $("#markDispatched" + val.id).click(function(){
-                console.log(val.id);
                 $.post("/order/dispatch/" + val.id);
                 alert("Order " + val.id + " dispatched!");
+
+                //redirect to orders page and force reload to refresh status
+                var url = "/menu#orders";
+                $(location).attr('href',url);
                 window.location.reload(true);
             });
             $("#markComplete" + val.id).click(function(){
                 $.post("/order/complete/" + val.id);
                 alert("Order " + val.id + " delivered!");
+
+                //redirect to orders page and force reload to refresh status
+                var url = "/menu#orders";
+                $(location).attr('href',url);
                 window.location.reload(true);
             });
 
@@ -203,7 +209,11 @@ $.getJSON("/order/view", function(data){
                         + "<td>" + val.price + "</td>"
                         + "<td>€" + (val.quantity * val.price) + "</td>"
                     )
-                })
+                });
+                $("#orderDetailsTableBody").append(
+                    "<td>Total Cost</td><td></td><td></td><td></td>" +
+                    "<td>€" + val.total_cost + "</td>"
+                );
             })
         });
     })

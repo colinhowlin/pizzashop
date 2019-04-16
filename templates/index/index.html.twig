@@ -29,18 +29,40 @@
                     <a href="/register">Register</a>
                 </div>
             </div>
-            {% else %}
+
+            {% elseif (is_granted('ROLE_DRIVER') or is_granted('ROLE_MANAGER')) %}
+                <h1 class="center-text">Welcome {{ app.user.firstname }} {{ app.user.lastname }}!!</h1>
+                <p class="center-text">Click <a href="/menu#orders" data-ajax="false" rel="external">here</a> to view current orders for delivery.</p>
+
+                <h1 class="center-text">5 Day Weather Forecast</h1>
+
+                <div id="weatherDiv">
+                    <table id="weatherTable" class="menu-table">
+                        <thead>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Icon</th>
+                        </thead>
+                        <tbody id="weatherTableBody">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            {% elseif is_granted('ROLE_USER')%}
 
             <!--TODO: Add a landing page once user logs in-->
             <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}!!</h1>
             <p>Click <a href="/menu" data-ajax="false">here</a> to view the menu.</p>
             <p>Or click <a href="/menu#orders" data-ajax="false" rel="external">here</a> to view your current orders.</p>
+
+
             {% endif %}
         </div><!-- end content -->
     </div><!-- end page one -->
 
     <div data-role="page" id="about">
-        <div data-role="header" data-position="inline" data-theme="e">
+        <div data-role="header" data-position="fixed" data-theme="e">
 
             <!-- img src="/images/pizza-banner.jpeg"/ -->
 
@@ -52,6 +74,7 @@
         </div>
     </div>
 
+    <script src="js/weatherapi.js"></script>
 
 {% endblock %}
 

@@ -80,21 +80,6 @@ class CustOrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/confirmation", name="order_confirmation")
-     */
-    //public function orderConfirmed(){
-    //    $request = Request::createFromGlobals();
-    //    //var_dump($request);
-    //    $order_id = $request->request->get('order_id', 'none');
-    //    echo($order_id);
-
-    //    return $this->render('cust_order/orderconfirmation.html.twig',
-    //        array(
-    //            'order_id' => $order_id
-    //        ));
-   // }
-
-    /**
      * @Route("/order/view", name="order/view")
      *
      */
