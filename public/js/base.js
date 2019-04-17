@@ -126,12 +126,12 @@ $( "#confirmOrderButton" ).click(function() {
     //Convert the array into a JSON
     var orderedItemsArrayJson = JSON.stringify(orderedItemsArray);
 
-    console.log("JSON Array: " + orderedItemsArrayJson);
+/*    console.log("JSON Array: " + orderedItemsArrayJson);
     console.log("Array: " + orderedItemsArray);
     console.log("Comments: " + comments);
     console.log("Delivery Address: " + delivery_address);
+    console.log("Total Cost: " + total_cost);*/
 
-    console.log("Total Cost: " + total_cost);
     //Post the order to the "/order" OrderController
     $.post("/order", { orderedItems:orderedItemsArrayJson, delivery_address:delivery_address, comments:comments, total_cost:total_cost})
         .done(function(data){

@@ -36,10 +36,24 @@
 
                 <h1 class="center-text">5 Day Weather Forecast</h1>
 
+                <div class="centered" id="forecastDiv">
+                    <table class="menu-table weather-table" id="forecastTable">
+
+                    </table>
+                </div>
+
+                <br>
+                <br>
+                <hr>
+
+
                 <div id="weatherDiv">
                     <table id="weatherTable" class="menu-table">
                         <thead>
                             <th>Date</th>
+                            <th>Temperature C</th>
+                            <th>Wind Km/h</th>
+                            <th>Rain mm</th>
                             <th>Description</th>
                             <th>Icon</th>
                         </thead>
@@ -51,7 +65,6 @@
 
             {% elseif is_granted('ROLE_USER')%}
 
-            <!--TODO: Add a landing page once user logs in-->
             <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}!!</h1>
             <p>Click <a href="/menu" data-ajax="false">here</a> to view the menu.</p>
             <p>Or click <a href="/menu#orders" data-ajax="false" rel="external">here</a> to view your current orders.</p>
@@ -63,14 +76,17 @@
 
     <div data-role="page" id="about">
         <div data-role="header" data-position="fixed" data-theme="e">
-
-            <!-- img src="/images/pizza-banner.jpeg"/ -->
-
             {% include 'navbar.html.twig' %}
-
         </div><!--end header-->
-        <div data-role="content">
+        <div class="centered" data-role="content">
             <h1>About Page</h1>
+            <p>This website was created as part of Web Software Engineering module of
+            Higher Diploma in Science in Computing course in Technolgical University of Dublin,
+            Blanchardstown campus.</p>
+            <p>It uses a mix of technologies to deliver a responsive, mobile oriented store
+            for a pizza shop.</p>
+            <p>The backend is written in PHP using the Symfony framework.</p>
+            <p>The frontend is a mix of traditional HTML and CSS along with JQuery Javascript library.</p>
         </div>
     </div>
 

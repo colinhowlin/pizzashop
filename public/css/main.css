@@ -64,3 +64,8 @@
 .currentOrderTable td{
     border: 1px solid #ddd;
 }
+
+.page-container {
+    width: 80% !important;
+    margin: auto !important;
+}
