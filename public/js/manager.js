@@ -28,8 +28,8 @@ $.getJSON("/order/view", function(data){
             window.location.reload(true);
             alert("Order " + val.id + " deleted!");
         });
-
     });
+
     $("#orderTableBody").append(
         "<tr>" +
         "<td></td>" +

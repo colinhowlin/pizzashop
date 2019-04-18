@@ -150,11 +150,39 @@
             {% include 'navbar.html.twig' %}
         </div><!--end header-->
 
+        <div class="centered" id="monthlySummaryTable">
+            <br>
+
+            <a href="/manager#reports">Back to reports menu</a>
+            <h3>Monthly Sales Data</h3>
+
+            <h3 class="center-text">Monthly Summary Sales Data</h3>
+
+            <table class="menu-table" id="monthlySummaryTable">
+                <thead>
+                <th>Jan</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Apr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Aug</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dec</th>
+                </thead>
+                <tbody id="monthlySummaryTableBody">
+
+                </tbody>
+            </table>
+        </div>
+
         <br/>
 
         <div class="centered">
-            <a href="/manager#reports">Back to reports menu</a>
-            <h3>Monthly Sales Data</h3>
+
             <p>Select month from dropdown to view details</p>
             <select id="monthPicker">
                 <option value="1">January</option>
@@ -188,28 +216,7 @@
         <br/>
         <br/>
 
-        <div id="monthlySummaryTable">
-            <h3 class="center-text">Monthly Summary Sales Data</h3>
-            <table class="menu-table" id="monthlySummaryTable">
-                <thead>
-                    <th>Jan</th>
-                    <th>Feb</th>
-                    <th>Mar</th>
-                    <th>Apr</th>
-                    <th>May</th>
-                    <th>Jun</th>
-                    <th>Jul</th>
-                    <th>Aug</th>
-                    <th>Sep</th>
-                    <th>Oct</th>
-                    <th>Nov</th>
-                    <th>Dec</th>
-                </thead>
-                <tbody id="monthlySummaryTableBody">
 
-                </tbody>
-            </table>
-        </div>
     </div>
 
     <br/>
