@@ -11,9 +11,35 @@ class ProductTest extends TestCase
     {
         $product = new Product();
 
-        $product->setName("Colin");
+        $product->setName("Test Name");
 
-        $this->assertSame("Colin", $product->getName());
+        $this->assertSame("Test Name", $product->getName());
     }
 
+    public function testSetDescription()
+    {
+        $product = new Product();
+
+        $product->setDescription("Test Product");
+
+        $this->assertSame("Test Product", $product->getDescription());
+    }
+
+    public function testSetProductCode()
+    {
+        $product = new Product();
+
+        $product->setProductCode("Test Product Code");
+
+        $this->assertSame("Test Product Code", $product->getProductCode());
+    }
+
+    public function testSetPrice()
+    {
+        $product = new Product();
+
+        $product->setPrice(11);
+
+        $this->assertSame(11, $product->getPrice());
+    }
 }

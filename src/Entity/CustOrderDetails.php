@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
 class CustOrderDetails{
     private $name;
     private $description;

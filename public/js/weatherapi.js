@@ -27,7 +27,7 @@ $.getJSON(url, function(data) {
         var timestamp = val.dt_txt;
         var month = timestamp.substring(5,7);
         var day = timestamp.substring(8,10);
-        var dateHeading = month + "/" + day;
+        var dateHeading = day + "/" + month;
 
         //create new weather object, set timestamp and add to array
         weatherDatas[count] = new weather(val.dt_txt, dateHeading, null, null, null, null, null);
@@ -105,7 +105,7 @@ $.getJSON(url, function(data) {
             "<td>" + dayOfWeek + " " + ampm +
             "<hr><br>" + data['dateHeading'] +
             "<hr><br><img alt='icon' src=" + data['icon_url'] + ">" +
-
+            "<hr><br>" + data[['temp']] + "&#176;C" +
             "<hr><br>" + data['description'] + "</td>"
         );
     })
