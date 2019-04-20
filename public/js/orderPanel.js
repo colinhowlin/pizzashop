@@ -40,6 +40,4 @@ $("#viewCurrentOrder").click(function(){
     updateOrderPanel(toppings);
     updateOrderPanel(sides);
     updateOrderPanel(drinks);
-
-    //$("#totalCostTd").append()
 });

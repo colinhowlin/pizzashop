@@ -16,7 +16,7 @@
                 <h2>Welcome!</h2>
                 <br/>
                 <p>Please <a href="/login">login</a> to place an order.</p>
-                <p>No Account? Click <a href="#register">here</a> to register.</p>
+                <p>No Account? Click <a href="/register">here</a> to register.</p>
             </div>
             <br/>
             <br/>
@@ -33,6 +33,10 @@
             {% elseif (is_granted('ROLE_DRIVER') or is_granted('ROLE_MANAGER')) %}
                 <h1 class="center-text">Welcome {{ app.user.firstname }} {{ app.user.lastname }}!!</h1>
                 <p class="center-text">Click <a href="/menu#orders" data-ajax="false" rel="external">here</a> to view current orders for delivery.</p>
+
+                <br>
+                <hr>
+                <br>
 
                 <h1 class="center-text">5 Day Weather Forecast</h1>
 

@@ -3,6 +3,7 @@
 {% block body %}
 
 
+    <!--suppress HtmlUnknownTarget -->
     <div data-role="page" id="menu">
 
         <div data-role="header" data-position="fixed" data-theme="e">
@@ -88,8 +89,7 @@
         <div class="centered">
 
             <a href="/manager#reports">Back to reports menu</a>
-            <p>Select date to view sales data:</p>
-            <input class="datepicker" type="date" name="datepicker" id="datepicker">
+            <label for="datepicker">Select date to view sales data:</label><input class="datepicker" type="date" name="datepicker" id="datepicker">
             <button id="salesDatePickerButton">Submit</button>
         </div>
 
@@ -124,8 +124,7 @@
         <div class="centered">
             <a href="/manager#reports">Back to reports menu</a>
             <h3>Weekly Sales Data</h3>
-            <p>Select Week from dropdown to view details</p>
-            <select id="weekPicker">
+            <label for="weekPicker">Select Week from dropdown to view details</label><select id="weekPicker">
 
             </select>
         </div>
@@ -183,8 +182,7 @@
 
         <div class="centered">
 
-            <p>Select month from dropdown to view details</p>
-            <select id="monthPicker">
+            <label for="monthPicker">Select month from dropdown to view details</label><select id="monthPicker">
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>

@@ -1,6 +1,6 @@
 //API Url to get 5-day forecast for Rosslare area.
 //API Key = c200fa916b000779e1dfce1ebbe67b4e
-var url = "http://api.openweathermap.org/data/2.5/forecast?id=2961690&APPID=c200fa916b000779e1dfce1ebbe67b4e&mode=json";
+const url = "http://api.openweathermap.org/data/2.5/forecast?id=2961690&APPID=c200fa916b000779e1dfce1ebbe67b4e&mode=json";
 
 //class to hold values about the weather
 class weather {
@@ -16,18 +16,18 @@ class weather {
 }
 
 //array to hold weather objects
-var weatherDatas = [];
+const weatherDatas = [];
 
 //retrieve the weather data from OpenWeatherMap
 $.getJSON(url, function(data) {
-    var count = 0;
+    let count = 0;
 
     //loop through datasets['list'] array
     $.each(data['list'], function (key, val) {
-        var timestamp = val.dt_txt;
-        var month = timestamp.substring(5,7);
-        var day = timestamp.substring(8,10);
-        var dateHeading = day + "/" + month;
+        const timestamp = val.dt_txt;
+        const month = timestamp.substring(5, 7);
+        const day = timestamp.substring(8, 10);
+        const dateHeading = day + "/" + month;
 
         //create new weather object, set timestamp and add to array
         weatherDatas[count] = new weather(val.dt_txt, dateHeading, null, null, null, null, null);
@@ -56,7 +56,7 @@ $.getJSON(url, function(data) {
             //Description of the weather
             weatherDatas[count].description = val.description;
             //weather graphic
-            var icon = val.icon;
+            const icon = val.icon;
             icon_url = "http://openweathermap.org/img/w/" + icon + ".png";
             weatherDatas[count].icon_url = icon_url;
         });
@@ -64,15 +64,15 @@ $.getJSON(url, function(data) {
     });
     //console.log(weatherDatas);
 
-    //array to hold values for forecase summary
-    var fiveDayForecast = [];
+    //array to hold values for forecast summary
+    const fiveDayForecast = [];
 
     //populate above array with weatherData if timestamp == 15:00:00
     weatherDatas.forEach(function(weatherData){
-        var timestamp = weatherData['timestamp'];
-        var month = timestamp.substring(5,7);
-        var day = timestamp.substring(8,10);
-        var dateHeading = day + "/" + month;
+        const timestamp = weatherData['timestamp'];
+        const month = timestamp.substring(5, 7);
+        const day = timestamp.substring(8, 10);
+        const dateHeading = day + "/" + month;
 
         if (timestamp.includes("12:00:00") || timestamp.includes("00:00:00")){
             fiveDayForecast.push(weatherData);
@@ -92,13 +92,14 @@ $.getJSON(url, function(data) {
     //console.log(fiveDayForecast);
 
     fiveDayForecast.forEach(function(data){
-        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var dayOfWeek = days[new Date(data['timestamp']).getDay()];
-        var time = data['timestamp'].substring(11,);
-        if(time == "12:00:00"){
-            var ampm = "AM";
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayOfWeek = days[new Date(data['timestamp']).getDay()];
+        const time = data['timestamp'].substring(11,);
+        var ampm;
+        if(time === "12:00:00"){
+            ampm = "AM";
         } else {
-            var ampm = "PM";
+            ampm = "PM";
         }
 
         $("#forecastTable").append(

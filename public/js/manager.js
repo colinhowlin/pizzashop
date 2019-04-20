@@ -6,8 +6,8 @@ $("#reportHeading").hide();
 
 //view current orders
 $.getJSON("/order/view", function(data){
-    var totalOrdersCost = 0;
-    var totalOrders = 0;
+    let totalOrdersCost = 0;
+    let totalOrders = 0;
     $.each(data, function(key, val){
         totalOrdersCost += val.total_cost;
         totalOrders++;
@@ -48,12 +48,11 @@ $.getJSON("/order/view", function(data){
 });
 
 
-var date;
-var dateurl;
+let date;
+let dateurl;
 $("#datepicker").change(function(){
     date = $("#datepicker").val();
     dateurl = "/manager/report/daily/" + date;
-    //$("#target").prop("href", newurl);
 });
 
 $("#salesDatePickerButton").click(function(){
@@ -72,7 +71,7 @@ $("#salesDatePickerButton").click(function(){
 });
 
 $("#monthPicker").on('change', function(){
-    var url = "/manager/report/monthly/" + $("#monthPicker").val();
+    const url = "/manager/report/monthly/" + $("#monthPicker").val();
     $.getJSON(url, function(data){
         $("#monthlyTableBody").empty().append(
             "<tr><td>" + data['total_orders'] + "</td>" +
@@ -93,7 +92,7 @@ $.getJSON("/manager/report/monthlysummary", function(data){
 });
 
 //build weekly select div
-for (var i = 1; i < 53; i++) {
+for (let i = 1; i < 53; i++) {
     $("#weekPicker").append(
         "<option value=" + i + ">Week" + i + "</option>"
     );
@@ -101,7 +100,7 @@ for (var i = 1; i < 53; i++) {
 
 //on change handler for weekPicker select
 $("#weekPicker").on('change', function(){
-    var url = "/manager/report/weekly/" + $("#weekPicker").val();
+    const url = "/manager/report/weekly/" + $("#weekPicker").val();
     $.getJSON(url, function(data){
         $("#weeklyTableBody").empty().append(
             "<tr><td>" + data['total_orders'] + "</td>" +

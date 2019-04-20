@@ -22,8 +22,8 @@ pizzaTypes.forEach(function(pizzaType){
     );
     //create click handlers for Add buttons
     $("#addpizza" + pizzaType.pre).click(function(){
-        var pizzaSize = $("#select-" + pizzaType.pre).val();
-        var product_code = pizzaType.pre + pizzaSize;
+        const pizzaSize = $("#select-" + pizzaType.pre).val();
+        const product_code = pizzaType.pre + pizzaSize;
         pizzas.forEach(function(pizza){
             if (product_code === pizza.product_code){
                 pizza.qty++;
@@ -32,12 +32,12 @@ pizzaTypes.forEach(function(pizzaType){
     });
     //create change handler to update price when different size pizza selected
     $("#select-" + pizzaType.pre).change(function(){
-        var pizzaSize = $("#select-" + pizzaType.pre).val();
-        if (pizzaSize == 8){
+        const pizzaSize = $("#select-" + pizzaType.pre).val();
+        if (pizzaSize === 8){
             $("#pizzaPrice" + pizzaType.pre).html("€5");
-        } else if (pizzaSize == 10){
+        } else if (pizzaSize === 10){
             $("#pizzaPrice" + pizzaType.pre).html("€10");
-        } else if (pizzaSize == 12){
+        } else if (pizzaSize === 12){
             $("#pizzaPrice" + pizzaType.pre).html("€15");
         }
     });
@@ -63,8 +63,8 @@ buildMenuBody(toppings, "toppingsTableBody");
 buildMenuBody(sides, "sidesTableBody");
 buildMenuBody(drinks, "drinksTableBody");
 
-var delivery_address;
-var comments;
+let delivery_address;
+let comments;
 
 //click handler for place order button
 $( "#placeOrderButton" ).click(function() {
@@ -73,8 +73,8 @@ $( "#placeOrderButton" ).click(function() {
     comments = $("#comments").val();
 
     //build the customer order for customer to review
-    var custOrder = "<h2>Your Order Details: </h2><table class='menu-table'><th>Item</th><th>Qty</th><th>Cost</th>";
-    var orderCost = 0;
+    let custOrder = "<h2>Your Order Details: </h2><table class='menu-table'><th>Item</th><th>Qty</th><th>Cost</th>";
+    let orderCost = 0;
 
     //loop through products array and call addToOrder function on it
     pizzas.forEach(addToOrder);
@@ -96,18 +96,18 @@ $( "#placeOrderButton" ).click(function() {
     custOrder += "<td>Total Cost</td><td></td><td>€" + orderCost + "</td>";
     custOrder += "</table>";
     custOrder += "<br>Delivery Address: " + delivery_address + "<br/>";
-    custOrder += "<br>Additional Comments: " + comments + "<br/>"
+    custOrder += "<br>Additional Comments: " + comments + "<br/>";
 
     $(" #orderDetailsDiv ").html(custOrder);
 });
 
-var order_id;
+let order_id;
 
 //click handler for confirmOrder button
 $( "#confirmOrderButton" ).click(function() {
     //create empty array to hold ordered products
-    var orderedItemsArray = [];
-    var total_cost = 0;
+    let orderedItemsArray = [];
+    let total_cost = 0;
 
     function addToOrderArray(productsArray){
         productsArray.forEach(function(product){
@@ -124,13 +124,13 @@ $( "#confirmOrderButton" ).click(function() {
     addToOrderArray(drinks);
 
     //Convert the array into a JSON
-    var orderedItemsArrayJson = JSON.stringify(orderedItemsArray);
+    let orderedItemsArrayJson = JSON.stringify(orderedItemsArray);
 
-/*    console.log("JSON Array: " + orderedItemsArrayJson);
-    console.log("Array: " + orderedItemsArray);
-    console.log("Comments: " + comments);
-    console.log("Delivery Address: " + delivery_address);
-    console.log("Total Cost: " + total_cost);*/
+    /*    console.log("JSON Array: " + orderedItemsArrayJson);
+        console.log("Array: " + orderedItemsArray);
+        console.log("Comments: " + comments);
+        console.log("Delivery Address: " + delivery_address);
+        console.log("Total Cost: " + total_cost);*/
 
     //Post the order to the "/order" OrderController
     $.post("/order", { orderedItems:orderedItemsArrayJson, delivery_address:delivery_address, comments:comments, total_cost:total_cost})
@@ -184,7 +184,7 @@ $.getJSON("/order/view", function(data){
                 alert("Order " + val.id + " dispatched!");
 
                 //redirect to orders page and force reload to refresh status
-                var url = "/menu#orders";
+                const url = "/menu#orders";
                 $(location).attr('href',url);
                 window.location.reload(true);
             });
@@ -193,7 +193,7 @@ $.getJSON("/order/view", function(data){
                 alert("Order " + val.id + " delivered!");
 
                 //redirect to orders page and force reload to refresh status
-                var url = "/menu#orders";
+                const url = "/menu#orders";
                 $(location).attr('href',url);
                 window.location.reload(true);
             });
